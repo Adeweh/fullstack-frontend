@@ -1,7 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function AddUser() {
+
+    let navigate = useNavigate()
+
     const [user, setUser] = useState({
         username: "",
         firstname: "",
@@ -20,8 +24,9 @@ export default function AddUser() {
     const onSubmit = async(e)=> {
         e.preventDefault();
         await axios.post("http://localhost:8080/register", user)
+        navigate("/")
 
-    }
+    };
 
   return (
     <div className='container'>
@@ -39,6 +44,7 @@ export default function AddUser() {
                     className="form-control"
                     placeholder='Enter your username'
                     name='username'
+                    // value={username}
                     onChange={(e) => onInputChange(e)}
                     />
 
@@ -85,9 +91,9 @@ export default function AddUser() {
                 <button type='submit' className='btn btn-outline-secondary mb-3'>
                     Submit
                 </button>
-                <button type='submit' className='btn btn-outline-danger mx-3 mb-3' >
+                <Link className='btn btn-outline-danger mx-3 mb-3' to="/" >
                     Cancel
-                </button>
+                </Link>
                 </form>
             </div>
         </div>
